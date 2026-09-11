@@ -5,6 +5,7 @@ const qrcode = require('qrcode-terminal');
 const client = new Client({
     authStrategy: new LocalAuth(), // Menyimpan sesi login agar tidak scan QR terus-menerus
     puppeteer: {
+        headless: true,
         handleSIGINT: false,
         args: [
             '--no-sandbox',
