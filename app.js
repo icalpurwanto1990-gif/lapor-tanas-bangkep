@@ -40,16 +40,15 @@ client.on('message', async (msg) => {
 
         console.log(`📩 [PESAN MASUK] Dari: ${msg.from} | Isi: "${msg.body}"`);
 
-        let chat;
-        try {
-            chat = await msg.getChat();
-        } catch (e) {
-            return; // Abaikan pesan sistem/protokol internal WhatsApp
-        }
-        if (!chat || chat.isGroup) {
-            if (chat && chat.isGroup) console.log(`⏩ Mengabaikan pesan dari grup WhatsApp: ${msg.from}`);
+        if (msg.from.endsWith('@g.us') || msg.author) {
+            console.log(`⏩ Mengabaikan pesan dari grup WhatsApp: ${msg.from}`);
             return;
         }
+
+        // Direct message wrapper tanpa memanggil getChat() yang melempar error r di Linux
+        const chat = {
+            sendMessage: (text, options) => client.sendMessage(msg.from, text, options)
+        };
 
         const userId = msg.from;
         const pesan = (msg.body || '').trim().toUpperCase();

@@ -25,13 +25,11 @@ class BotHandler {
             if (!msg || !msg.from) return;
             if (msg.from === 'status@broadcast' || msg.from.endsWith('@broadcast') || msg.from.endsWith('@newsletter') || msg.isStatus) return;
 
-            let chat;
-            try {
-                chat = await msg.getChat();
-            } catch (e) {
-                return; // Abaikan pesan sistem/protokol internal WhatsApp
-            }
-            if (!chat || chat.isGroup) return;
+            if (msg.from.endsWith('@g.us') || msg.author) return;
+
+            const chat = {
+                sendMessage: (text, options) => client.sendMessage(msg.from, text, options)
+            };
 
             const userId = msg.from;
             const pesan = (msg.body || '').trim().toUpperCase();
