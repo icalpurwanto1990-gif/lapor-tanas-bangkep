@@ -38,7 +38,12 @@ client.on('message', async (msg) => {
         if (!msg || !msg.from) return;
         if (msg.from === 'status@broadcast' || msg.from.endsWith('@broadcast') || msg.from.endsWith('@newsletter') || msg.isStatus) return;
 
-        const chat = await msg.getChat();
+        let chat;
+        try {
+            chat = await msg.getChat();
+        } catch (e) {
+            return; // Abaikan pesan sistem/protokol internal WhatsApp
+        }
         if (!chat || chat.isGroup) return;
 
         const userId = msg.from;
