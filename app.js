@@ -38,16 +38,22 @@ client.on('message', async (msg) => {
         if (!msg || !msg.from) return;
         if (msg.from === 'status@broadcast' || msg.from.endsWith('@broadcast') || msg.from.endsWith('@newsletter') || msg.isStatus) return;
 
+        console.log(`📩 [PESAN MASUK] Dari: ${msg.from} | Isi: "${msg.body}"`);
+
         let chat;
         try {
             chat = await msg.getChat();
         } catch (e) {
             return; // Abaikan pesan sistem/protokol internal WhatsApp
         }
-        if (!chat || chat.isGroup) return;
+        if (!chat || chat.isGroup) {
+            if (chat && chat.isGroup) console.log(`⏩ Mengabaikan pesan dari grup WhatsApp: ${msg.from}`);
+            return;
+        }
 
         const userId = msg.from;
         const pesan = (msg.body || '').trim().toUpperCase();
+        console.log(`🤖 [PROSES BOT] User: ${userId} | Kata kunci: "${pesan}"`);
         // --- 1. MENYAPA & MENU UTAMA ---
         const keywordSapaan = ['MENU', 'HALO', 'P', 'START', 'INFO','HI', 'HELLO', 'HOLA','hallo', 'ASSALAMUALAIKUM', 'SALAM', 'MULAI'];
     
@@ -391,6 +397,21 @@ client.on('message', async (msg) => {
 } catch (err) {
     console.error('Error message handler:', err.message);
 }
+});
+
+// Izinkan pengujian bot jika pengguna mengirim pesan ke nomor sendiri (self-chat)
+client.on('message_create', async (msg) => {
+    try {
+        if (!msg.fromMe) return; // Pesan dari orang lain ditangani oleh event 'message'
+        if (client.info && msg.to === client.info.wid._serialized) {
+            // Hindari looping pesan bot sendiri
+            if (msg.body && (msg.body.includes('🏛️') || msg.body.includes('HALO, SELAMAT DATANG'))) return;
+            console.log(`📩 [TES KE NOMOR SENDIRI] Isi: "${msg.body}"`);
+            client.emit('message', msg);
+        }
+    } catch (err) {
+        // Abaikan
+    }
 });
 
                       
