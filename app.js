@@ -34,13 +34,17 @@ client.on('ready', () => {
 const userSteps = {}; // Penyimpanan status alur tiap user
 
 client.on('message', async (msg) => {
-    const chat = await msg.getChat();
-    const userId = msg.from;
-    const pesan = msg.body.trim().toUpperCase();
-    if (msg.from === 'status@broadcast') return;
-    if (chat.isGroup) return;
-    // --- 1. MENYAPA & MENU UTAMA ---
-    const keywordSapaan = ['MENU', 'HALO', 'P', 'START', 'INFO','HI', 'HELLO', 'HOLA','hallo', 'ASSALAMUALAIKUM', 'SALAM', 'MULAI'];
+    try {
+        if (!msg || !msg.from) return;
+        if (msg.from === 'status@broadcast' || msg.from.endsWith('@broadcast') || msg.from.endsWith('@newsletter') || msg.isStatus) return;
+
+        const chat = await msg.getChat();
+        if (!chat || chat.isGroup) return;
+
+        const userId = msg.from;
+        const pesan = (msg.body || '').trim().toUpperCase();
+        // --- 1. MENYAPA & MENU UTAMA ---
+        const keywordSapaan = ['MENU', 'HALO', 'P', 'START', 'INFO','HI', 'HELLO', 'HOLA','hallo', 'ASSALAMUALAIKUM', 'SALAM', 'MULAI'];
     
     if (!userSteps[userId] || keywordSapaan.includes(pesan)) {
         // Inisialisasi sesi baru
@@ -377,8 +381,12 @@ client.on('message', async (msg) => {
             // Jika OPD mengirim pesan tapi tidak menyebutkan Tiket, beri instruksi
             await msg.reply(`⚠️ Mohon sertakan Nomor Tiket (Contoh: TKT-2023...) agar balasan Anda sampai ke pelapor yang benar.`);
         }
-    }    }}
-)
+    }
+}
+} catch (err) {
+    console.error('Error message handler:', err.message);
+}
+});
 
                       
 // event ini untuk memantau proses

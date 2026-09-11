@@ -22,10 +22,11 @@ class BotHandler {
 
     async handleMessage(client, msg) {
         try {
-            if (msg.from === 'status@broadcast') return;
+            if (!msg || !msg.from) return;
+            if (msg.from === 'status@broadcast' || msg.from.endsWith('@broadcast') || msg.from.endsWith('@newsletter') || msg.isStatus) return;
 
             const chat = await msg.getChat();
-            if (chat.isGroup) return;
+            if (!chat || chat.isGroup) return;
 
             const userId = msg.from;
             const pesan = (msg.body || '').trim().toUpperCase();
