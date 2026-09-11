@@ -1,0 +1,369 @@
+/* ==========================================================================
+   Lapor Tanas Bangkep - Modern Admin Dashboard CSS
+   ========================================================================== */
+
+:root {
+    --primary-color: #1e3a8a;
+    --primary-hover: #172554;
+    --primary-light: #eff6ff;
+    --secondary-color: #0284c7;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --bg-body: #f1f5f9;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    min-height: 100vh;
+    letter-spacing: -0.01em;
+}
+
+/* 1. Header & Navigation */
+.app-navbar {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-md);
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+}
+
+.brand-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #60a5fa;
+    backdrop-filter: blur(4px);
+}
+
+.brand-title {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+}
+
+.brand-subtitle {
+    color: #94a3b8;
+    font-size: 0.8rem;
+}
+
+.btn-action-primary {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.55rem 1rem;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+}
+
+.btn-action-primary:hover {
+    background-color: #1d4ed8;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+.btn-action-secondary {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.55rem 1rem;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+}
+
+.btn-action-secondary:hover {
+    background: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* 2. Stat Cards */
+.stat-card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 1.35rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+}
+
+.stat-total::before { background-color: var(--primary-color); }
+.stat-pending::before { background-color: var(--warning-color); }
+.stat-process::before { background-color: var(--secondary-color); }
+.stat-done::before { background-color: var(--success-color); }
+
+.stat-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 0.35rem;
+}
+
+.stat-number {
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.1;
+    margin-bottom: 0.2rem;
+}
+
+.stat-sub {
+    font-size: 0.775rem;
+    color: var(--text-muted);
+}
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.65rem;
+}
+
+.stat-total .stat-icon { background: #dbeafe; color: #1d4ed8; }
+.stat-pending .stat-icon { background: #fef3c7; color: #d97706; }
+.stat-process .stat-icon { background: #e0f2fe; color: #0284c7; }
+.stat-done .stat-icon { background: #dcfce7; color: #15803d; }
+
+/* 3. Filter & Panel Card */
+.panel-card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+}
+
+.search-input-group {
+    position: relative;
+}
+
+.search-input-group .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.search-input-group input {
+    padding-left: 2.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input-group input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.form-select {
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+.form-select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* 4. Table Styles */
+.custom-table {
+    margin-bottom: 0;
+}
+
+.custom-table thead th {
+    background: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.775rem;
+    letter-spacing: 0.5px;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.custom-table tbody td {
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.custom-table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.badge-ticket {
+    background-color: #0f172a;
+    color: #f8fafc;
+    font-weight: 600;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    letter-spacing: 0.3px;
+}
+
+.badge-status {
+    padding: 0.4rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.badge-status.menunggu {
+    background-color: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+
+.badge-status.proses {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+}
+
+.badge-status.selesai {
+    background-color: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.badge-status.ditolak {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+/* Action Buttons in Table */
+.btn-action-sm {
+    padding: 0.32rem 0.65rem;
+    font-size: 0.8rem;
+    border-radius: 6px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.15s ease;
+}
+
+.btn-action-sm:hover {
+    transform: translateY(-1px);
+}
+
+/* 5. Print Section & Print Media Queries */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    /* Tampilkan lembar rekapitulasi */
+    #area-cetak-laporan, #area-cetak-laporan * {
+        visibility: visible;
+    }
+
+    #area-cetak-laporan {
+        display: block !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 20px;
+        background: #ffffff;
+    }
+
+    /* Tampilkan lembar tiket satuan jika modal sedang terbuka */
+    #cetakTiket, #cetakTiket * {
+        visibility: visible;
+    }
+
+    #cetakTiket {
+        display: block !important;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 20px;
+        border: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .modal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        overflow: visible;
+    }
+
+    .modal-dialog {
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .modal-content {
+        border: none !important;
+        box-shadow: none !important;
+    }
+}

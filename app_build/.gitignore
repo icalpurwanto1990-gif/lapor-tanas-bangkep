@@ -1,0 +1,23 @@
+# Dependensi Node.js
+node_modules/
+npm-debug.log*
+
+# Sesi & Token WhatsApp (Sangat Rahasia!)
+.wwebjs_auth/
+.wwebjs_cache/
+
+# File Konfigurasi Sensitif & Kredensial
+.env
+.env.local
+
+# File Upload / Bukti Pengaduan (Kecuali folder dipertahankan)
+public/uploads/*
+!public/uploads/.gitkeep
+
+# File Log Sistem & PM2
+logs/
+*.log
+
+# File Sistem Operasi
+.DS_Store
+Thumbs.db

@@ -1,0 +1,116 @@
+[
+  {
+    "nama": "Ical purwanto",
+    "nik": "7207192905900001",
+    "alamat": "Palam",
+    "gender": "Laki-laki",
+    "disabilitas": "Tidak",
+    "kontak": "082271114668",
+    "jenis": "Aspirasi",
+    "judul": "Youtube Bangkep TV Tidak update",
+    "isi": "Kepada YTH Bapak/Kadis Kominfo Bangkep, kami mohon agar bangkep TV bisa di update kontennya disini tampilannya sudah jadul",
+    "tanggal": "05/04/2026",
+    "lokasi": "Palam",
+    "instansi": "Diskominfo",
+    "buktiPath": "/uploads/1775376489419_bukti.jpeg",
+    "isMedia": true,
+    "mimetype": "image/jpeg",
+    "no_tiket": "TKT-20260405-8972",
+    "status": "Selesai",
+    "waktu": "5/4/2026, 16.08.09",
+    "disposisi": {
+      "opd": "Dinas Kominfo",
+      "catatan": "hai",
+      "waktu": "16/4/2026, 00.46.39"
+    },
+    "balasan": [
+      {
+        "pesan": "mohon maaf anda",
+        "waktu": "16/4/2026, 00.49.28"
+      }
+    ]
+  },
+  {
+    "nama": "Dirga Januar",
+    "nik": "7271010501920003",
+    "alamat": "Desa Saiyong",
+    "gender": "L",
+    "disabilitas": "Tidak",
+    "kontak": "Fjfjdss",
+    "jenis": "Pengaduan",
+    "judul": "Tidak inovatif",
+    "isi": "Tolong web pemda sudah keliatan jadul,, tolong di upgrade",
+    "tanggal": "06/04/2026",
+    "lokasi": "Salakan",
+    "instansi": "Diskominfo",
+    "buktiPath": "Tidak ada",
+    "isMedia": false,
+    "no_tiket": "TKT-20260406-8088",
+    "status": "Selesai",
+    "waktu": "6/4/2026, 10.35.11",
+    "disposisi": {
+      "opd": "Dinas Kominfo",
+      "catatan": "",
+      "waktu": "20/4/2026, 06.36.59"
+    },
+    "balasan": [
+      {
+        "pesan": "SUDAH DI TINDAK LANJUTI TERIMAKASIH ATAS MASUKANNYA, DISKOMINFO",
+        "waktu": "20/4/2026, 06.38.59"
+      }
+    ]
+  },
+  {
+    "nama": "Lusi Rahmita",
+    "nik": "7201034807990001",
+    "alamat": "Salakan,, kelurahan salakan",
+    "gender": "Perempuan",
+    "disabilitas": "Tidak",
+    "kontak": "085185612636",
+    "jenis": "Permohonan Informasi",
+    "judul": "Informasi harga gas",
+    "isi": "Harga gas di kabupaten Banggai Kepulauan",
+    "tanggal": "23 April 2026",
+    "lokasi": "Di desa slakan",
+    "instansi": "Harga pangan",
+    "buktiPath": "Tidak ada",
+    "isMedia": false,
+    "wa_id": "107812520722485@lid",
+    "kontak_asli": "107812520722485@lid",
+    "no_tiket": "TKT-20260423-1305",
+    "status": "Selesai",
+    "waktu": "23/4/2026, 13.18.43",
+    "balasan": [
+      {
+        "pesan": "lengkapi laporan anda",
+        "waktu": "23/4/2026, 13.21.05"
+      }
+    ]
+  },
+  {
+    "nama": "Moh. Alfat",
+    "nik": "7201041412930003",
+    "alamat": "Desa Luksagu kec. Tinangkung utara",
+    "gender": "Laki-laki",
+    "disabilitas": "Tidak",
+    "kontak": "alfatmoh69@gmail.com",
+    "jenis": "Permohonan Informasi",
+    "judul": "Permintaan daftar Harga bahan sembako",
+    "isi": "Harga sembako melonjak naik",
+    "tanggal": "09/04/2026",
+    "lokasi": "Luksagu",
+    "instansi": "Diskoperindag",
+    "buktiPath": "Tidak ada",
+    "isMedia": false,
+    "wa_id": "29008393674839@lid",
+    "kontak_asli": "29008393674839@lid",
+    "no_tiket": "TKT-20260426-3920",
+    "status": "Sedang Diproses",
+    "waktu": "26/4/2026, 21.40.03",
+    "disposisi": {
+      "opd": "Lainnya",
+      "catatan": "ada permintaan daftat harga",
+      "waktu": "27/4/2026, 13.19.19"
+    }
+  }
+]

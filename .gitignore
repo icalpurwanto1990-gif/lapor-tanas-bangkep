@@ -1,0 +1,36 @@
+# Dependensi Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Sesi & Token WhatsApp (Sangat Rahasia!)
+.wwebjs_auth/
+.wwebjs_cache/
+
+# File Konfigurasi Sensitif & Kredensial
+.env
+.env.local
+.env.*.local
+
+# File Upload / Bukti Pengaduan (Kecuali folder dipertahankan)
+uploads/*
+!uploads/.gitkeep
+public/uploads/*
+!public/uploads/.gitkeep
+
+# File Log Sistem & PM2
+logs/
+*.log
+.pm2/
+
+# File Temporary & Backup
+*.tmp
+*.temp
+*.bak
+
+# File Sistem Operasi
+.DS_Store
+Thumbs.db
+Desktop.ini
