@@ -1075,4 +1075,11 @@ app.listen(port, () => {
 });
 
 // BARU JALANKAN WHATSAPP CLIENT
-client.initialize();
+client.initialize().catch(err => {
+    console.error('⚠️ Inisialisasi awal client:', err.message);
+});
+
+// Tangani unhandled rejection agar server tidak mati saat Chrome melakukan background reload
+process.on('unhandledRejection', (reason) => {
+    console.warn('⚠️ Peringatan background browser:', reason && reason.message ? reason.message : reason);
+});
