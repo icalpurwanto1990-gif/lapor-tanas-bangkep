@@ -1,70 +1,64 @@
-# Technical Specification: Implementasi Manajemen Versi Git & Workflow Sinkronisasi VPS
+# Technical Specification: Panduan & Solusi Instalasi Node.js 20 LTS di VPS
 
 ## 1. Executive Summary
-Spesifikasi ini disusun untuk memenuhi kebutuhan pengelolaan kode sumber berbasis **Git Version Control System (VCS)** pada sistem **Lapor Tanas Bangkep**. 
+Pada saat menjalankan `node app.js` di server VPS (`root@srv1798679:/var/www/lapor-tanas#`), muncul galat:
+```
+Command 'node' not found, but can be installed with:
+apt install nodejs
+```
+Masalah ini terjadi karena lingkungan VPS belum memiliki runtime **Node.js** dan **NPM**. Perintah standar `apt install nodejs` dari repositori bawaan Linux tidak disarankan karena:
+1. Sering kali memasang versi Node.js yang sudah usang (outdated).
+2. Sering kali **tidak menyertakan NPM** secara otomatis.
+3. Belum menyertakan paket pustaka C++/grafis (Chromium dependencies) yang mutlak dibutuhkan oleh browser Puppeteer pada library `whatsapp-web.js`.
 
-Dengan integrasi Git:
-- Pengembang dan administrator dapat mengelola kode sumber secara terpusat (misalnya via GitHub / GitLab).
-- Konfigurasi dan perubahan kode di komputer lokal dapat langsung disinkronisasikan ke VPS secara aman menggunakan `git pull` tanpa perlu transfer file manual (SCP/SFTP).
-- Berkas sensitif (seperti kredensial `.env`, sesi WhatsApp `.wwebjs_auth`, dan cache puppeteer) terisolasi secara ketat dan tidak akan bocor ke repositori publik melalui konfigurasi `.gitignore` yang tepat.
+Spesifikasi ini memberikan solusi teknis instalasi Node.js 20 LTS resmi (NodeSource), dependensi Puppeteer, serta skrip 1-baris siap pakai (*one-liner command*).
 
 ---
 
 ## 2. Requirements
 
 ### 2.1. Functional Requirements
-1. **Inisialisasi Repositori Git**:
-   - Inisialisasi Git repository lokal dengan branch utama standar (`main`).
-   - Pembuatan file `.gitignore` komprehensif untuk melindungi:
-     - `node_modules/` (dependensi pihak ketiga).
-     - `.wwebjs_auth/` dan `.wwebjs_cache/` (sesi dan token otentikasi login WhatsApp).
-     - `.env` (kredensial sandi admin dan port server).
-     - Berkas bukti upload (`uploads/*`, dengan mempertahankan folder).
-     - Log sistem (`*.log`, `npm-debug.log*`, `.pm2/`).
-     - Berkas sistem operasi (`.DS_Store`, `Thumbs.db`).
-2. **Template Konfigurasi Lingkungan (`.env.example`)**:
-   - Menyediakan contoh konfigurasi yang aman dikomit ke repositori agar saat di-clone di VPS, pengguna cukup menyalin `.env.example` menjadi `.env`.
-3. **Alur Sinkronisasi VPS (Git CI/CD Workflow)**:
-   - Script pembantu di VPS (`vps-update.sh`) untuk menarik update terbaru (`git pull origin main`), memperbarui dependensi (`npm install`), dan merestart proses daemon PM2 secara otomatis tanpa downtime yang lama.
-4. **Petunjuk Koneksi Remote GitHub / GitLab**:
-   - Panduan menghubungkan repositori lokal ke akun GitHub / GitLab pengguna.
-
-### 2.2. Non-Functional Requirements
-- **Keamanan Kredensial**: Jaminan 100% berkas rahasia (token sesi WA dan password admin) tidak terunggah ke repositori.
-- **Efisiensi Ukuran Repositori**: Menjaga ukuran repo tetap ramping (<5MB) dengan mengecualikan dependensi binary dan berkas cache.
+1. **Instalasi Node.js 20.x LTS & NPM Resmi**:
+   - Menambahkan repository resmi NodeSource untuk Ubuntu/Debian.
+   - Memasang `nodejs` (yang mencakup runtime `node` dan paket manajer `npm`).
+2. **Instalasi Pustaka Sistem Chromium (Puppeteer Dependencies)**:
+   - Memasang library wajib: `libnss3`, `libatk-bridge2.0-0`, `libcups2`, `libgbm1`, `libasound2`, `fonts-liberation`, dll. agar browser headless WhatsApp Web dapat terbuka di Linux tanpa antarmuka GUI.
+3. **Instalasi Dependensi Proyek**:
+   - Menjalankan `npm install` di dalam direktori `/var/www/lapor-tanas`.
+4. **Instalasi PM2 (Process Manager)**:
+   - Memasang PM2 secara global (`npm install -g pm2`) agar bot WhatsApp dan dashboard Express berjalan 24 jam di background.
 
 ---
 
-## 3. Architecture & Tech Stack
+## 3. Implementation Steps (One-Liner Command)
 
-### 3.1. Komponen & Alur Data Git
-```
-[Komputer Lokal Pengembang]
-       │
-       ├── (1) Edit Kode & Konfigurasi
-       ├── (2) git add . && git commit -m "Update"
-       └── (3) git push origin main
-                     │
-                     ▼
-          [GitHub / GitLab Remote]
-                     │
-                     ▼ (4) git pull / ./vps-update.sh
-           [Server VPS Linux]
-                     │
-                     ├── Perbarui Berkas Kode
-                     └── pm2 reload lapor-tanas (Auto-Restart 24/7)
-```
+Perintah lengkap yang harus dieksekusi pengguna di terminal VPS (`root@srv1798679`):
 
-### 3.2. Struktur Berkas Git Tambahan
-```
-├── .gitignore               # Aturan pengecualian berkas sensitif & cache
-├── .env.example             # Template variabel lingkungan
-├── vps-update.sh            # Script 1-baris untuk auto-update di VPS
-└── production_artifacts/
-    └── Git_VPS_Workflow.md  # Panduan step-by-step setup GitHub & VPS
+```bash
+# 1. Update paket sistem & pasang curl
+apt-get update -y && apt-get install -y curl ca-certificates
+
+# 2. Tambahkan repo NodeSource Node.js 20 LTS & instal Node.js + NPM
+curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+apt-get install -y nodejs
+
+# 3. Instal dependensi Chromium untuk WhatsApp Web (Puppeteer)
+apt-get install -y \
+  libasound2 libatk-bridge2.0-0 libatk1.0-0 libcairo2 libcups2 \
+  libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libglib2.0-0 \
+  libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libx11-xcb1 \
+  libxcomposite1 libxcursor1 libxdamage1 libxrandr2 libxss1 libxtst6
+
+# 4. Verifikasi versi
+node -v && npm -v
+
+# 5. Pasang dependensi aplikasi & jalankan
+cd /var/www/lapor-tanas
+npm install
+node app.js
 ```
 
 ---
 
 ## 4. Approval Gate
-Do you approve of this tech stack and specification? You can safely open `production_artifacts/Technical_Specification.md` and add comments or modifications if you want me to rework anything!
+Do you approve of this tech stack and specification? You can safely open Technical_Specification.md and add comments or modifications if you want me to rework anything!

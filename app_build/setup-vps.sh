@@ -17,27 +17,25 @@ sudo apt-get upgrade -y
 
 # 2. Instalasi dependensi Chromium untuk Puppeteer (WhatsApp Web)
 echo "🌐 2. Menginstal library Chromium / Puppeteer..."
+# Deteksi libasound yang tersedia (Ubuntu 24.04 menggunakan libasound2t64)
+LIB_ASOUND="libasound2"
+if apt-cache show libasound2t64 >/dev/null 2>&1; then
+    LIB_ASOUND="libasound2t64"
+fi
+
 sudo apt-get install -y \
     ca-certificates \
     fonts-liberation \
-    libasound2 \
-    libatk-bridge2.0-0 \
-    libatk1.0-0 \
+    $LIB_ASOUND \
     libc6 \
     libcairo2 \
-    libcups2 \
     libdbus-1-3 \
     libexpat1 \
     libfontconfig1 \
     libgbm1 \
     libgcc1 \
-    libglib2.0-0 \
-    libgtk-3-0 \
     libnspr4 \
     libnss3 \
-    libpango-1.0-0 \
-    libpangocairo-1.0-0 \
-    libstdc++6 \
     libx11-6 \
     libx11-xcb1 \
     libxcb1 \
